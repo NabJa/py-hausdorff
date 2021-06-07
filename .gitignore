@@ -1,3 +1,4 @@
 build/
 dist/
 hausdorff.egg-inf/
+hausdorff.egg-info/
