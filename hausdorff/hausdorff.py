@@ -41,8 +41,8 @@ def hausdorff_distance(XA, XB, distance='euclidean'):
 		'arrays must be of type numpy.ndarray'
 	assert np.issubdtype(XA.dtype, np.number) and np.issubdtype(XA.dtype, np.number), \
 		'the arrays data type must be numeric'
-	assert XA.ndim == 2 and XB.ndim == 2, \
-		'arrays must be 2-dimensional'
+	assert XA.ndim in [2, 3] and XB.ndim in [2, 3] and XA.ndim == XB.ndim, \
+		'arrays must be 2- or 3-dimensional'
 	assert XA.shape[1] == XB.shape[1], \
 		'arrays must have equal number of columns'
 	
@@ -57,4 +57,12 @@ def hausdorff_distance(XA, XB, distance='euclidean'):
 		distance_function = distance
 	else:
 		raise ValueError("Invalid input value for 'distance' parameter.")
+
+	if XA.ndim == 3:
+		assert '3d' in distance, \
+			'A 3D distance function is required for a 3D input.'
+	if XA.ndim == 2:
+		assert '3d' not in distance, \
+			'A 2D distance function is required for a 2D input.'
+	
 	return _hausdorff(XA, XB, distance_function)
