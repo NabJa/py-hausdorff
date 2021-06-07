@@ -19,6 +19,17 @@ def euclidean(array_x, array_y):
 	return sqrt(ret)
 
 @numba.jit(nopython=True, fastmath=True)
+def euclidean3d(array_x, array_y):
+	n = array_x.shape[0]
+	m = array_x.shape[1]
+	ret = 0.
+	for i in range(n):
+		for j in range(m):
+			ret += (array_x[i, j]-array_y[i, j])**2
+	return sqrt(ret)
+
+
+@numba.jit(nopython=True, fastmath=True)
 def chebyshev(array_x, array_y):
 	n = array_x.shape[0]
 	ret = -1*np.inf
